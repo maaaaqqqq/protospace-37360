@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!, except: :show
 
   def show
     user = User.find(params[:id])
@@ -16,4 +17,7 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :profile, :occupation, :position).merge(prototype_id: params[:prototype_id])
   end
 
+  def move_to_index
+    redirect_to action: :index
+  end
 end
